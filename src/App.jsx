@@ -1,6 +1,9 @@
 import axios from "axios";
 import { useEffect } from "react";
 
+import SearchBar from "./components/SearchBar";
+import { useState } from "react";
+
 function App() {
   const getData = async () => {
     try {
@@ -29,6 +32,12 @@ function App() {
     getData();
   }, []);
 
-  return <div>App</div>;
+  const [city, setCity] = useState("");
+
+  return (
+    <div>
+      <SearchBar setCity={setCity} />
+    </div>
+  );
 }
 export default App;
