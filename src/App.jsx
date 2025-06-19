@@ -1,10 +1,9 @@
 import axios from "axios";
-import { useEffect } from "react";
-
 import SearchBar from "./components/SearchBar";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 function App() {
+  const [city, setCity] = useState("");
   const getData = async () => {
     try {
       const position = await new Promise((resolve, reject) => {
@@ -31,8 +30,6 @@ function App() {
   useEffect(() => {
     getData();
   }, []);
-
-  const [city, setCity] = useState("");
 
   return (
     <div>
