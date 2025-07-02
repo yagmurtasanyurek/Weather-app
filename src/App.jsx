@@ -1,14 +1,21 @@
 import axios from "axios";
 import SearchBar from "./components/SearchBar";
+import Weather from "./components/Weather";
 import { useState, useEffect } from "react";
 
 function App() {
   const [city, setCity] = useState("");
+
+  // Get user's location
   const getData = async () => {
     try {
       const position = await new Promise((resolve, reject) => {
         navigator.geolocation.getCurrentPosition(resolve, reject);
       });
+
+      // getCurrentPosition() is a callback-based API — it doesn't return a Promise, which means you can't await it directly. So we wrap it in a Promise manually to make it await-able.
+      // await pauses the function until the Promise is resolved.
+      // You can’t avoid wrapping getCurrentPosition in a Promise if you want to use await.
 
       const { latitude: lat, longitude: long } = position.coords;
 
@@ -22,6 +29,8 @@ function App() {
           },
         }
       );
+
+      setCity(response.data.city);
     } catch (error) {
       console.error("Error fetching geolocation or reverse geocoding:", error);
     }
@@ -34,6 +43,7 @@ function App() {
   return (
     <div>
       <SearchBar setCity={setCity} />
+      <Weather city={city} />
     </div>
   );
 }
