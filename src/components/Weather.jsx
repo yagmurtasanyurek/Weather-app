@@ -25,7 +25,7 @@ function getNext6Hours(hourly) {
     }
     if (next6Hours.length === 6) break;
   }
-  console.log("Next 6 hours found:", next6Hours);
+
   return next6Hours;
 }
 
@@ -137,8 +137,15 @@ function Weather({ city }) {
       ))
     : null;
 
-  console.log("weatherData from RTK:", weatherData);
-  console.log("weatherData.hourly:", weatherData?.hourly);
+  // Handling Data Error isLoading
+  if (loadingCoords) console.log("COORDS LOADING");
+  if (loadingWeather) return console.log("FETCHIN WEATHER");
+
+  if (errorCoord)
+    return <p>Error loading coords: {errorCoord.status || "Unknown error"}</p>;
+
+  if (errorWeather)
+    return <p>Error loading weather :{errorWeather.status || "Unknown"} </p>;
 
   if (weatherData) {
     return (

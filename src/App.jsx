@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 
 function App() {
   const [city, setCity] = useState("");
+  const apiKey = import.meta.env.VITE_GEOCODE_API_KEY;
 
   // Get user's location
   const getData = async () => {
@@ -25,7 +26,7 @@ function App() {
           params: {
             latitude: lat,
             longitude: long,
-            key: "bdc_4dc7684a774941f493463004ab369404",
+            key: apiKey,
           },
         }
       );
