@@ -3,53 +3,7 @@ import {
   useFetchCoordsQuery,
   useFetchWeatherQuery,
 } from "../store/api/weatherApi";
-
-////////////////Helper functions////////////
-
-function getNext6Hours(hourly) {
-  const now = Date.now(); //current time in ms
-  const next6Hours = [];
-
-  console.log("NOW (ms):", now);
-
-  for (let i = 0; i < hourly.time.length; i++) {
-    const timeStampMs = hourly.time[i] * 1000; // second * 1000 = ms
-
-    console.log("Hour:", i, "→", timeStampMs, "→", new Date(timeStampMs));
-
-    if (timeStampMs > now) {
-      next6Hours.push({
-        time: new Date(timeStampMs),
-        temp: hourly.temperature_2m[i],
-      });
-    }
-    if (next6Hours.length === 6) break;
-  }
-
-  return next6Hours;
-}
-
-function getNextDays(daily) {
-  const nextDays = [];
-  const now = Date.now(); //  current time in ms
-
-  for (let i = 0; i < daily.time.length; i++) {
-    const timeStampMs = daily.time[i] * 1000;
-    const date = new Date(timeStampMs);
-    const dayName = date.toLocaleDateString("en-US", { weekday: "long" });
-    const day = date.getDate();
-
-    if (timeStampMs > now) {
-      nextDays.push({
-        dayName,
-        day,
-        temp: daily.temperature_2m_min[i],
-      });
-    }
-  }
-
-  return nextDays;
-}
+import { getNext6Hours, getNextDays } from "../helpers/weatherHelpers";
 
 function Weather({ city }) {
   const {
@@ -107,9 +61,6 @@ function Weather({ city }) {
     99: "Thunderstorm with heavy hail",
   };
 
-  console.log("HOURLY--", weatherData?.hourly);
-  console.log("HOURLY TIME--", weatherData?.hourly.time);
-
   const renderedHours = weatherData?.hourly
     ? getNext6Hours(weatherData?.hourly).map((hour, i) => {
         console.log(hour);
@@ -137,7 +88,6 @@ function Weather({ city }) {
       ))
     : null;
 
-  // Handling Data Error isLoading
   if (loadingCoords) console.log("COORDS LOADING");
   if (loadingWeather) return console.log("FETCHIN WEATHER");
 
@@ -153,7 +103,6 @@ function Weather({ city }) {
         <div>
           <p>{city}</p>
           <p>Image here</p>
-          {/* we conditionally render the block only when weatherData exists. this prevents rendering before state update*/}
           {weatherData && (
             <div>
               <p>{weatherData.current?.temperature_2m}°C </p>
