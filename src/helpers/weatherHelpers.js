@@ -5,8 +5,6 @@ export function getNext6Hours(hourly) {
   for (let i = 0; i < hourly.time.length; i++) {
     const timeStampMs = hourly.time[i] * 1000; // second * 1000 = ms
 
-    console.log("Hour:", i, "→", timeStampMs, "→", new Date(timeStampMs));
-
     if (timeStampMs > now) {
       next6Hours.push({
         time: new Date(timeStampMs),

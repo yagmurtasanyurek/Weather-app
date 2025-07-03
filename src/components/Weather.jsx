@@ -4,6 +4,7 @@ import {
   useFetchWeatherQuery,
 } from "../store/api/weatherApi";
 import { getNext6Hours, getNextDays } from "../helpers/weatherHelpers";
+import { toFormData } from "axios";
 
 function Weather({ city }) {
   const {
@@ -63,7 +64,6 @@ function Weather({ city }) {
 
   const renderedHours = weatherData?.hourly
     ? getNext6Hours(weatherData?.hourly).map((hour, i) => {
-        console.log(hour);
         return (
           <li key={i}>
             <p>
