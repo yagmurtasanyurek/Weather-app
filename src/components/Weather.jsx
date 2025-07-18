@@ -5,6 +5,7 @@ import {
 import { getNext6Hours, getNextDays } from "../helpers/weatherHelpers";
 import { weatherCodeMap } from "../helpers/weatherCodeMap";
 import { toFormData } from "axios";
+import { getHour } from "../helpers/dateHelper";
 
 function Weather({ city }) {
   const {
@@ -24,6 +25,8 @@ function Weather({ city }) {
     isLoading: loadingWeather,
   } = useFetchWeatherQuery(coords, { skip: !coords });
   //conditionally run weather query using skip.
+
+  console.log(weatherData);
 
   if (errorCoord) return console.log("Error fetching coordinates");
   if (loadingCoords) console.log("COORDS LOADING");
@@ -50,9 +53,12 @@ function Weather({ city }) {
   const renderedDaily = weatherData?.daily
     ? getNextDays(weatherData.daily).map((day, i) => (
         <li key={i}>
-          <p>{day.dayName}</p>
-          <p>{day.day}</p>
-          <p>{day.temp}°C</p>
+          <p>{day.weekDay}</p>
+          <p> {day.day}</p>
+          <p> Min Temp{day.minTemp}°C</p>
+          <p>Max Temp{day.maxTemp}°C</p>
+          <p>Wind {day.wind}</p>
+          <p>Rain {day.rain}</p>
         </li>
       ))
     : null;
@@ -70,14 +76,25 @@ function Weather({ city }) {
     return (
       <div className="parent">
         <div>
-          <p>{city}</p>
-          <p>Image here</p>
-          {weatherData && (
-            <div>
-              <p>{weatherData.current?.temperature_2m}°C </p>
-              <p>{weatherCodeMap[weatherData.daily.weather_code[0]]}</p>
-            </div>
-          )}
+          <div>
+            <p>{city}</p>
+            <p>Image here</p>
+            {weatherData && (
+              <div>
+                <p>{weatherData.current?.temperature_2m}°C </p>
+                <p>{weatherCodeMap[weatherData.daily.weather_code[0]]}</p>
+              </div>
+            )}
+          </div>
+          <div>
+            <p>High {weatherData.daily.temperature_2m_max[0]}</p>
+            <p>Low {weatherData.daily.temperature_2m_min[0]}</p>
+            <p>Rain {weatherData.current.rain}</p>
+            <p>Wind {weatherData.current.wind_speed_10m}</p>
+            <p>Humidity {weatherData.current.rain}</p>
+            <p>Sunrise {getHour(weatherData.daily.sunrise[0] * 1000)}</p>
+            <p>Sunset {getHour(weatherData.daily.sunset[0] * 1000)}</p>
+          </div>
         </div>
 
         <div>

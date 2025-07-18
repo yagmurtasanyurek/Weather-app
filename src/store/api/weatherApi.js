@@ -12,7 +12,7 @@ export const weatherApi = createApi({
         query: ({ lat, long }) => {
           const { start, end } = getTodayand15DaysLater();
 
-          return `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${long}&daily=temperature_2m_max,temperature_2m_min,sunset,sunrise,weather_code&hourly=temperature_2m,rain,snowfall,relative_humidity_2m&models=best_match&current=temperature_2m,is_day,rain,snowfall,wind_speed_10m,precipitation,relative_humidity_2m&timezone=auto&timeformat=unixtime&start_date=${start}&end_date=${end}`;
+          return `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${long}&daily=temperature_2m_max,temperature_2m_min,sunset,sunrise,weather_code,rain_sum,wind_speed_10m_max&hourly=temperature_2m,rain,snowfall,relative_humidity_2m&models=best_match&current=temperature_2m,is_day,rain,snowfall,wind_speed_10m,precipitation,relative_humidity_2m&timezone=auto&timeformat=unixtime&start_date=${start}&end_date=${end}`;
         },
       }),
       fetchCoords: builder.query({

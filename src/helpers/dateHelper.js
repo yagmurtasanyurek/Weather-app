@@ -10,3 +10,12 @@ export function getTodayand15DaysLater() {
     end: format(endDate),
   };
 }
+
+export function getHour(timestamp) {
+  const date = new Date(timestamp);
+  const time = date.toLocaleString([], {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+  return time;
+}

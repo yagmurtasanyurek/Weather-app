@@ -24,17 +24,22 @@ export function getNextDays(daily) {
   for (let i = 0; i < daily.time.length; i++) {
     const timeStampMs = daily.time[i] * 1000;
     const date = new Date(timeStampMs);
-    const dayName = date.toLocaleDateString("en-US", { weekday: "long" });
+    const weekDay = date.toLocaleDateString("en-US", { weekday: "long" });
     const day = date.getDate();
+    const wind = daily.wind_speed_10m_max[0];
+    const rain = daily.rain_sum[0];
 
     if (timeStampMs > now) {
       nextDays.push({
-        dayName,
+        weekDay,
         day,
-        temp: daily.temperature_2m_min[i],
+        minTemp: daily.temperature_2m_min[i],
+        maxTemp: daily.temperature_2m_max[i],
+        rain,
+        wind,
       });
     }
-    if (nextDays.length === 7) break;
+    if (nextDays.length === 5) break;
   }
 
   return nextDays;
