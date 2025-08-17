@@ -19,3 +19,17 @@ export function getHour(timestamp) {
   });
   return time;
 }
+
+export function getTodaysDate() {
+  const today = new Date();
+  const formatted = today.toLocaleString("en-US", {
+    weekday: "short",
+    day: "2-digit",
+    month: "long",
+  });
+  return formatted;
+}
+export function isNowDaytime(sunrise, sunset) {
+  const now = Date.now();
+  return now >= sunrise * 1000 && now < sunset * 1000;
+}

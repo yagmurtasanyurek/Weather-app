@@ -1,5 +1,4 @@
 import axios from "axios";
-import SearchBar from "./components/SearchBar";
 import Weather from "./components/Weather";
 import { useState, useEffect } from "react";
 
@@ -42,9 +41,8 @@ function App() {
   }, []);
 
   return (
-    <div>
-      <SearchBar setCity={setCity} />
-      <Weather city={city} />
+    <div className="min-h-screen flex flex-col text-slate-100  bg-blue-500 ">
+      <Weather city={city} setCity={setCity} />
     </div>
   );
 }
