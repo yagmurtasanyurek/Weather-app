@@ -14,7 +14,6 @@ function App() {
       });
 
       // getCurrentPosition() is a callback-based API — it doesn't return a Promise, which means you can't await it directly. So we wrap it in a Promise manually to make it await-able.
-      // await pauses the function until the Promise is resolved.
       // You can’t avoid wrapping getCurrentPosition in a Promise if you want to use await.
 
       const { latitude: lat, longitude: long } = position.coords;

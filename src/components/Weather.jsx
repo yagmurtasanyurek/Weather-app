@@ -4,10 +4,10 @@ import {
 } from "../store/api/weatherApi";
 import { getNext8Hours, getNextDays } from "../helpers/weatherHelpers";
 import { weatherCodeMap } from "../helpers/weatherCodeMap";
+import weatherIconMap from "../helpers/weatherIconMap";
 import { toFormData } from "axios";
 import { getHour, isNowDaytime } from "../helpers/dateHelper";
 import SearchBar from "./SearchBar";
-import weatherIconMap from "../helpers/weatherIconMap";
 import { getTodaysDate } from "../helpers/dateHelper";
 import { useState, useEffect } from "react";
 import { formatCityName } from "../helpers/formatCityName.js";
@@ -18,9 +18,9 @@ function Weather({ city, setCity }) {
   const [errorMessage, setErrorMessage] = useState("");
 
   const handleSearch = (name) => {
-    if (!name?.trim()) return;
+    if (!name) return;
     setErrorMessage("");
-    setPendingCity(name.trim());
+    setPendingCity(name);
   };
 
   const {
@@ -30,20 +30,16 @@ function Weather({ city, setCity }) {
     isLoading: loadingCoords,
     isError: errorCoord,
   } = useFetchCoordsQuery(pendingCity, { skip: !pendingCity });
+  /* don’t run the query if pendingCity is empty, null, or undefined. */
 
   const hasValidCurrentCoords = !!currentCoords?.results?.length;
+  /* !! cast any value to a strict true or false */
 
-  /*   const coords =
-    coordData?.results?.length > 0
-      ? {
-          lat: coordData.results[0].latitude,
-          long: coordData.results[0].longitude,
-        }
-      : undefined; */
   useEffect(() => {
     if (!city) return;
 
-    setPendingCity(city); // trigger your coord query
+    setPendingCity(city);
+    //useFetchCoordsQuery hook knows when to run and fetch new coordinates.
   }, [city]);
 
   useEffect(() => {
@@ -71,14 +67,6 @@ function Weather({ city, setCity }) {
     isFetching: fetchingWeather,
     isError: errorWeather,
   } = useFetchWeatherQuery(coords, { skip: !coords });
-
-  //conditionally run weather query using skip.
-
-  /*   if (errorCoord) return console.log("Error fetching coordinates");
-  if (loadingCoords) console.log("COORDS LOADING");
-
-  if (errorWeather) return console.log(" Error fetching weather");
-  if (loadingWeather) return console.log("FETCHIN WEATHER"); */
 
   const renderedHours = weatherData?.hourly
     ? getNext8Hours(

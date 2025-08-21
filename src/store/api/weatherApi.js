@@ -3,9 +3,7 @@ import { getTodayand15DaysLater } from "../../helpers/dateHelper";
 
 export const weatherApi = createApi({
   reducerPath: "weatherData",
-  baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:5173",
-  }),
+  baseQuery: fetchBaseQuery({}),
   endpoints(builder) {
     return {
       fetchWeather: builder.query({
