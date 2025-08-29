@@ -1,5 +1,5 @@
 export function getNext8Hours(hourly, sunrise, sunset) {
-  console.log(hourly, "HOURLY");
+  /* console.log(hourly, "HOURLY"); */
   const now = Date.now(); //current time in ms
   const next8Hours = [];
 
@@ -20,13 +20,11 @@ export function getNext8Hours(hourly, sunrise, sunset) {
     if (next8Hours.length === 8) break;
   }
 
-  console.log(next8Hours);
-
   return next8Hours;
 }
 
 export function getNextDays(daily) {
-  console.log(daily, "DAİLY");
+  /*  console.log(daily, "DAİLY"); */
   const nextDays = [];
   const now = Date.now(); //  current time in ms
 

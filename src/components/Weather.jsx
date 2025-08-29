@@ -8,6 +8,7 @@ import weatherIconMap from "../helpers/weatherIconMap";
 import { toFormData } from "axios";
 import { getHour, isNowDaytime } from "../helpers/dateHelper";
 import SearchBar from "./SearchBar";
+import Modal from "./Modal.jsx";
 import { getTodaysDate } from "../helpers/dateHelper";
 import { useState, useEffect } from "react";
 import { formatCityName } from "../helpers/formatCityName.js";
@@ -16,6 +17,7 @@ function Weather({ city, setCity }) {
   const [pendingCity, setPendingCity] = useState("");
   const [coords, setCoords] = useState(undefined);
   const [errorMessage, setErrorMessage] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleSearch = (name) => {
     if (!name) return;
@@ -42,8 +44,24 @@ function Weather({ city, setCity }) {
     //useFetchCoordsQuery hook knows when to run and fetch new coordinates.
   }, [city]);
 
+  const {
+    data: weatherData,
+    isLoading: loadingWeather,
+    isFetching: fetchingWeather,
+    isError: errorWeather,
+  } = useFetchWeatherQuery(coords, { skip: !coords });
+
   useEffect(() => {
     if (!pendingCity || fetchingCoords) return; // no search yet
+
+    if (errorCoord) {
+      setIsModalOpen(true);
+      setErrorMessage("Error validating city.");
+    }
+    if (errorWeather) {
+      setIsModalOpen(true);
+      setErrorMessage("Weather data could not be fetched.");
+    }
 
     if (hasValidCurrentCoords) {
       const first = currentCoords.results[0];
@@ -51,7 +69,8 @@ function Weather({ city, setCity }) {
       setCity(formatCityName(pendingCity));
       setErrorMessage("");
     } else {
-      setErrorMessage("City not found. Please try again.");
+      setErrorMessage("Invalid city. Please try again.");
+      setIsModalOpen(true);
     }
   }, [
     pendingCity,
@@ -59,14 +78,9 @@ function Weather({ city, setCity }) {
     hasValidCurrentCoords,
     currentCoords,
     setCity,
+    errorCoord,
+    errorWeather,
   ]);
-
-  const {
-    data: weatherData,
-    isLoading: loadingWeather,
-    isFetching: fetchingWeather,
-    isError: errorWeather,
-  } = useFetchWeatherQuery(coords, { skip: !coords });
 
   const renderedHours = weatherData?.hourly
     ? getNext8Hours(
@@ -146,7 +160,10 @@ function Weather({ city, setCity }) {
     : weatherIconMap[currentCode]?.night;
 
   return (
-    <div className=" flex-1 max-w-5xl w-full mx-auto bg-blue-500 px-6 py-10 sm:py-10 sm:px-10">
+    <div
+      className=" flex-1 max-w-5xl w-full mx-auto bg-blue-500 px-6 py-10 sm:py-10 sm:px-10"
+      onClick={() => console.log("App div clicked (bubble)")}
+    >
       <div className="flex justify-between items-center mb-9 px-6 sm:px-0">
         {/* lOCATİON AND DATE*/}
         <div>
@@ -157,10 +174,18 @@ function Weather({ city, setCity }) {
       </div>
 
       {pendingCity && fetchingCoords && <p>Validating city...</p>}
-      {errorCoord && <p className="text-red-500">Error validating city.</p>}
-      {errorMessage && <p className="text-red-500">{errorMessage}</p>}
+      {isModalOpen && (
+        <Modal
+          text={errorMessage}
+          onClose={() => {
+            console.log("MODAL CLICKED");
+
+            setIsModalOpen(false);
+            setErrorMessage("");
+          }}
+        />
+      )}
       {coords && fetchingWeather && <p>Fetching weather...</p>}
-      {errorWeather && <p className="text-red-500">Error loading weather.</p>}
 
       {weatherData && (
         <>
