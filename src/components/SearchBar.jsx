@@ -14,7 +14,10 @@ function SearchBar({ onSearch }) {
     setInput("");
   };
   return (
-    <form className=" border bg-white rounded-xl" onSubmit={handleSubmit}>
+    <form
+      className=" border bg-white rounded-2xl pl-3 pt-1 pb-1"
+      onSubmit={handleSubmit}
+    >
       <input
         onChange={handleChange}
         value={input}
@@ -22,7 +25,7 @@ function SearchBar({ onSearch }) {
         aria-label="Search for a city"
         inputMode="search"
         placeholder=" Search a city"
-        className=" text-black outline-none rounded-xl h-8 "
+        className=" text-black outline-none rounded-xl h-8 pr-2 "
       />
     </form>
   );
