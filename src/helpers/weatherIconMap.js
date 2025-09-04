@@ -74,10 +74,22 @@ const weatherIconMap = {
     day: rainyDay,
     night: rainyNight,
   },
-  71: snow,
-  73: snow,
-  75: snow,
-  77: snow,
+  71: {
+    day: snow,
+    night: snow,
+  },
+  73: {
+    day: snow,
+    night: snow,
+  },
+  75: {
+    day: snow,
+    night: snow,
+  },
+  77: {
+    day: snow,
+    night: snow,
+  },
   80: {
     day: rainyDay,
     night: rainyNight,
@@ -90,9 +102,18 @@ const weatherIconMap = {
     day: rainyDay,
     night: rainyNight,
   },
-  85: snow,
-  86: snow,
-  95: thunder,
+  85: {
+    day: snow,
+    night: snow,
+  },
+  86: {
+    day: snow,
+    night: snow,
+  },
+  95: {
+    day: thunder,
+    night: thunder,
+  },
   96: hail,
   99: hail,
 };
