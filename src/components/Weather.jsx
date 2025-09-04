@@ -160,17 +160,14 @@ function Weather({ city, setCity }) {
     : weatherIconMap[currentCode]?.night;
 
   return (
-    <div
-      className=" flex-1 max-w-5xl w-full mx-auto bg-blue-500 px-6 py-10 sm:py-10 sm:px-10"
-      onClick={() => console.log("App div clicked (bubble)")}
-    >
-      <div className="flex justify-between items-center mb-9 px-6 sm:px-0">
+    <div className=" flex-1 max-w-5xl w-full mx-auto bg-blue-500 px-6 py-10 sm:py-10 sm:px-10">
+      <div className="  flex justify-between items-center mb-9 px-6 sm:px-0">
         {/* lOCATİON AND DATE*/}
         <div>
           {city && <p className="font-bold pl-5 text-2xl">{city}</p>}
           {city && <p className="pl-5">{getTodaysDate()}</p>}
         </div>
-        <SearchBar onSearch={handleSearch} />
+        <SearchBar onSearch={handleSearch} setCity={setCity} />
       </div>
 
       {pendingCity && fetchingCoords && <p>Validating city...</p>}
@@ -178,8 +175,6 @@ function Weather({ city, setCity }) {
         <Modal
           text={errorMessage}
           onClose={() => {
-            console.log("MODAL CLICKED");
-
             setIsModalOpen(false);
             setErrorMessage("");
           }}
