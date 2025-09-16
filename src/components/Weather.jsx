@@ -12,6 +12,11 @@ import Modal from "./Modal.jsx";
 import { getTodaysDate } from "../helpers/dateHelper";
 import { useState, useEffect } from "react";
 import { formatCityName } from "../helpers/formatCityName.js";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
+import { DaysSkeleton } from "../skeletons/DaysSkeleton.jsx";
+import { HoursSkeleton } from "../skeletons/HoursSkeleton.jsx";
+import { MainWeatherSkeleton } from "../skeletons/MainWeatherSkeleton.jsx";
 
 function Weather({ city, setCity }) {
   const [pendingCity, setPendingCity] = useState("");
@@ -139,7 +144,7 @@ function Weather({ city, setCity }) {
             <p className="font-medium">{day.wind} km/h</p>
             <p className="font-light">Wind</p>
           </div>
-          <div className="-minw-9">
+          <div className="min-w-9">
             <p className="font-medium">
               {day.rain}
               <span>&#x25;</span>
@@ -161,16 +166,17 @@ function Weather({ city, setCity }) {
 
   return (
     <div className=" flex-1 max-w-5xl w-full mx-auto bg-blue-500 px-6 py-10 sm:py-10 sm:px-10">
-      <div className="  flex justify-between items-center mb-9 px-6 sm:px-0">
+      <div className="  flex justify-between items-center mb-9 ">
         {/* lOCATİON AND DATE*/}
         <div>
-          {city && <p className="font-bold pl-5 text-2xl">{city}</p>}
-          {city && <p className="pl-5">{getTodaysDate()}</p>}
+          <p className="font-bold pl-5 text-2xl">
+            {city || <Skeleton width={100} />}
+          </p>
+          <p className="pl-5">{city ? getTodaysDate() : <Skeleton />}</p>
         </div>
         <SearchBar onSearch={handleSearch} setCity={setCity} />
       </div>
 
-      {pendingCity && fetchingCoords && <p>Validating city...</p>}
       {isModalOpen && (
         <Modal
           text={errorMessage}
@@ -180,12 +186,10 @@ function Weather({ city, setCity }) {
           }}
         />
       )}
-      {coords && fetchingWeather && <p>Fetching weather...</p>}
 
-      {weatherData && (
-        <>
-          {/* PARENT DİV with 2 children */}
-          <div className="flex flex-col sm:flex-row  justify-between  gap-y-10 items-center  mb-20">
+      <>
+        {weatherData ? (
+          <div className="flex flex-col sm:flex-row justify-between  gap-y-10 items-center  mb-20">
             {/* Current temperature */}
             <div className="flex items-center shrink-0">
               <img
@@ -193,71 +197,80 @@ function Weather({ city, setCity }) {
                 alt="weather icon"
                 className="w-48 h-48 md:w-64 md:h-64"
               />
-              <div className="">
-                <div>
-                  <p className="font-medium text-7xl">
-                    {weatherData.current?.temperature_2m}°
-                  </p>
-                  <p>{weatherCodeMap[weatherData.daily.weather_code[0]]}</p>
-                </div>
+              <div>
+                <p className="font-medium text-7xl">
+                  {`${weatherData?.current?.temperature_2m}° `}
+                </p>
+                <p>{weatherCodeMap[weatherData?.daily.weather_code[0]]}</p>
               </div>
             </div>
             {/* Current stats div */}
-            <div className="grid grid-cols-3 grid-rows-2 gap-7 px-4 md:px-10 text-xl sm:text-base max-w-md text-center">
+            <div className="grid grid-cols-3 grid-rows-2 gap-7 px-4 md:px-10 text-xl sm:text-lg max-w-md text-center">
               <div>
                 <p className="font-medium">
-                  {Math.trunc(weatherData.daily.temperature_2m_max[0])}
+                  {Math.trunc(weatherData?.daily.temperature_2m_max[0])}
                 </p>
                 <p className="font-light">High </p>
               </div>
               <div>
-                <p className="font-medium"> {weatherData.current.rain}</p>
+                <p className="font-medium">{weatherData?.current.rain}</p>
                 <p className="font-light">Rain</p>
               </div>
               <div>
                 <p className="font-medium">
-                  {getHour(weatherData.daily.sunrise[0] * 1000)}
+                  {getHour(weatherData?.daily.sunrise[0] * 1000)}
                 </p>
                 <p className="font-light">Sunrise</p>
               </div>
               <div>
                 <p className="font-medium">
-                  {Math.trunc(weatherData.daily.temperature_2m_min[0])}
+                  {Math.trunc(weatherData?.daily.temperature_2m_min[0])}
                 </p>
                 <p className="font-light">Low</p>
               </div>
               <div>
                 <p className="font-medium">
-                  {Math.trunc(weatherData.current.wind_speed_10m)}
+                  {Math.trunc(weatherData?.current.wind_speed_10m)}
                 </p>
                 <p className="font-light">Wind</p>
               </div>
               <div>
                 <p className="font-medium">
-                  {getHour(weatherData.daily.sunset[0] * 1000)}
+                  {getHour(weatherData?.daily.sunset[0] * 1000)}
                 </p>
                 <p className="font-light">Sunset</p>
               </div>
             </div>
           </div>
+        ) : (
+          <MainWeatherSkeleton />
+        )}
+        {/* PARENT DİV with 2 children */}
 
-          {/* Weather by Hour */}
-          <div className="mb-24  px-6 sm:px-0 ">
-            <p className="font-medium mb-4">Next 8 Hours</p>
+        {/* Weather by Hour */}
+        {weatherData ? (
+          <div className="mb-24  ">
+            <p className="font-medium mb-4">Next Hours</p>
             <ul className="flex gap-4 justify-around overflow-x-auto ">
               {renderedHours}
             </ul>
           </div>
+        ) : (
+          <HoursSkeleton />
+        )}
 
-          {/* Weather by Days */}
-          <div className="mb-5  px-6 sm:px-0">
+        {/* Weather by Days */}
+        {weatherData ? (
+          <div className="mb-5  ">
             <h3 className="font-medium mb-4">Next Days</h3>
             <ul className="flex flex-col gap-2 justify-start">
               {renderedDaily}
             </ul>
           </div>
-        </>
-      )}
+        ) : (
+          <DaysSkeleton />
+        )}
+      </>
     </div>
   );
 }
