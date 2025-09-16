@@ -100,7 +100,7 @@ function Weather({
       ).map((hour, i) => {
         return (
           <li key={i}>
-            <div className=" flex flex-col justify-center items-center min-w-[100px] h-[130px]  bg-white/10 rounded-xl p-2 ">
+            <div className=" flex flex-col justify-center items-center min-w-[100px] h-[130px] bg-white/10 rounded-xl p-2 ">
               <p>
                 {hour.date.toLocaleTimeString([], {
                   hour: "2-digit",
@@ -257,7 +257,7 @@ function Weather({
         {weatherData ? (
           <div className="mb-24  ">
             <p className="font-medium mb-4">Next Hours</p>
-            <ul className="flex gap-4 justify-around overflow-x-auto ">
+            <ul className="flex gap-4 justify-start overflow-x-auto ">
               {renderedHours}
             </ul>
           </div>
