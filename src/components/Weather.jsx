@@ -197,6 +197,7 @@ function Weather({
           <div className="flex flex-col sm:flex-row justify-between  gap-y-10 items-center  mb-20">
             {/* Current temperature */}
             <div className="flex flex-col sm:flex-row items-center shrink-0">
+            <div className="flex flex-col sm:flex-row items-center shrink-0">
               <img
                 src={currentIcon}
                 alt="weather icon"
