@@ -16,7 +16,10 @@ function App() {
   const getData = async () => {
     try {
       const position = await new Promise((resolve, reject) => {
-        navigator.geolocation.getCurrentPosition(resolve, reject);
+        navigator.geolocation.getCurrentPosition(resolve, reject, {
+          timeout: 10000,
+          maximumAge: 0,
+        });
       });
 
       // getCurrentPosition() is a callback-based API — it doesn't return a Promise, which means you can't await it directly. So we wrap it in a Promise manually to make it await-able.
@@ -37,11 +40,24 @@ function App() {
 
       setCity(response.data.city);
     } catch (error) {
-      console.log("Error:", error.message);
-      setIsModalOpen(true);
-      setErrorMessage(
-        `Couldn't access your location. Please try again. Error:${error.message}`
-      );
+      switch (error.code) {
+        case 1: //PERMISSION_DENIED
+          setIsModalOpen(true);
+          setErrorMessage(
+            "It looks like location access is blocked. Please check your phone settings and allow location access for your browser."
+          );
+          break;
+        case 2: // POSITION_UNAVAILABLE
+          setIsModalOpen(true);
+          setErrorMessage("Location information is unavailable.");
+          break;
+        case 3: // TIMEOUT
+          setIsModalOpen(true);
+          setErrorMessage("The request to get your location timed out.");
+          break;
+        default:
+          setErrorMessage("An unknown error occurred while fetching location.");
+      }
     }
   };
 
