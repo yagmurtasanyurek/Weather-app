@@ -37,8 +37,11 @@ function App() {
 
       setCity(response.data.city);
     } catch (error) {
+      console.log("Error:", error.message);
       setIsModalOpen(true);
-      setErrorMessage("Couldn't access your location. Please try again");
+      setErrorMessage(
+        `Couldn't access your location. Please try again. Error:${error.message}`
+      );
     }
   };
 
