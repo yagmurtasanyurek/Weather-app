@@ -8,6 +8,8 @@ import { MainWeatherSkeleton } from "./skeletons/MainWeatherSkeleton";
 
 function App() {
   const [city, setCity] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
   const apiKey = import.meta.env.VITE_GEOCODE_API_KEY;
 
   // Get user's location
@@ -35,7 +37,8 @@ function App() {
 
       setCity(response.data.city);
     } catch (error) {
-      console.error("Error fetching geolocation or reverse geocoding:", error);
+      setIsModalOpen(true);
+      setErrorMessage("Couldn't access your location. Please try again");
     }
   };
 
@@ -45,12 +48,15 @@ function App() {
 
   return (
     <div className="min-h-screen flex flex-col text-slate-100  bg-blue-500 ">
-      <SkeletonTheme
-        baseColor="#b1d4fa "
-        highlightColor="#cfe5fc "
-        duration={2}
-      >
-        <Weather city={city} setCity={setCity} />
+      <SkeletonTheme baseColor="#b1d4fa" highlightColor="#cfe5fc" duration={2}>
+        <Weather
+          city={city}
+          setCity={setCity}
+          isModalOpen={isModalOpen}
+          setIsModalOpen={setIsModalOpen}
+          errorMessage={errorMessage}
+          setErrorMessage={setErrorMessage}
+        />
       </SkeletonTheme>
     </div>
   );
