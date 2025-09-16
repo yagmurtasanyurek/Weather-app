@@ -195,7 +195,8 @@ function Weather({ city, setCity }) {
               <img
                 src={currentIcon}
                 alt="weather icon"
-                className="w-48 h-48 md:w-64 md:h-64"
+                className="
+                 w-48 h-48 md:w-64 md:h-64 "
               />
               <div>
                 <p className="font-medium text-7xl">
