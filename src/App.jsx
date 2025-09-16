@@ -1,6 +1,10 @@
 import axios from "axios";
 import Weather from "./components/Weather";
 import { useState, useEffect } from "react";
+import { SkeletonTheme } from "react-loading-skeleton";
+import { DaysSkeleton } from "./skeletons/DaysSkeleton";
+import { HoursSkeleton } from "./skeletons/HoursSkeleton";
+import { MainWeatherSkeleton } from "./skeletons/MainWeatherSkeleton";
 
 function App() {
   const [city, setCity] = useState("");
@@ -41,7 +45,13 @@ function App() {
 
   return (
     <div className="min-h-screen flex flex-col text-slate-100  bg-blue-500 ">
-      <Weather city={city} setCity={setCity} />
+      <SkeletonTheme
+        baseColor="#b1d4fa "
+        highlightColor="#cfe5fc "
+        duration={2}
+      >
+        <Weather city={city} setCity={setCity} />
+      </SkeletonTheme>
     </div>
   );
 }
