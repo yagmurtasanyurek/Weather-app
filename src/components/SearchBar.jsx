@@ -109,7 +109,7 @@ function SearchBar({ onSearch, setCity }) {
       {suggestions.length > 0 && (
         <ul
           role="listbox "
-          className="absolute top-12 left-0 w-40 sm:w-64 md:w-80 rounded-md overflow-hidden "
+          className="absolute top-12 left-0 w-40 sm:w-64 md:w-80 rounded-md overflow-hidden z-10 "
         >
           {renderedSuggestions}
         </ul>
