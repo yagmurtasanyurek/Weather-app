@@ -191,7 +191,7 @@ function Weather({ city, setCity }) {
         {weatherData ? (
           <div className="flex flex-col sm:flex-row justify-between  gap-y-10 items-center  mb-20">
             {/* Current temperature */}
-            <div className="flex items-center shrink-0">
+            <div className="flex flex-col sm:flex-row items-center shrink-0">
               <img
                 src={currentIcon}
                 alt="weather icon"
@@ -199,10 +199,12 @@ function Weather({ city, setCity }) {
                  w-48 h-48 md:w-64 md:h-64 "
               />
               <div>
-                <p className="font-medium text-7xl">
+                <p className="font-medium text-7xl pb-1">
                   {`${weatherData?.current?.temperature_2m}° `}
                 </p>
-                <p>{weatherCodeMap[weatherData?.daily.weather_code[0]]}</p>
+                <p className="mb-4 text-center">
+                  {weatherCodeMap[weatherData?.daily.weather_code[0]]}
+                </p>
               </div>
             </div>
             {/* Current stats div */}
