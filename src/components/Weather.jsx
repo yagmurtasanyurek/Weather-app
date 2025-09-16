@@ -18,11 +18,16 @@ import { DaysSkeleton } from "../skeletons/DaysSkeleton.jsx";
 import { HoursSkeleton } from "../skeletons/HoursSkeleton.jsx";
 import { MainWeatherSkeleton } from "../skeletons/MainWeatherSkeleton.jsx";
 
-function Weather({ city, setCity }) {
+function Weather({
+  city,
+  setCity,
+  isModalOpen,
+  setIsModalOpen,
+  errorMessage,
+  setErrorMessage,
+}) {
   const [pendingCity, setPendingCity] = useState("");
   const [coords, setCoords] = useState(undefined);
-  const [errorMessage, setErrorMessage] = useState("");
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleSearch = (name) => {
     if (!name) return;
@@ -61,11 +66,11 @@ function Weather({ city, setCity }) {
 
     if (errorCoord) {
       setIsModalOpen(true);
-      setErrorMessage("Error validating city.");
+      setErrorMessage("Couldn't access your location. Please try again");
     }
     if (errorWeather) {
       setIsModalOpen(true);
-      setErrorMessage("Weather data could not be fetched.");
+      setErrorMessage("Weather data could not be fetched. Please try again.");
     }
 
     if (hasValidCurrentCoords) {
