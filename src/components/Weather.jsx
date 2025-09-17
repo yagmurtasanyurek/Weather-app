@@ -177,7 +177,9 @@ function Weather({
           <p className="font-bold pl-5 text-2xl">
             {city || <Skeleton width={100} />}
           </p>
-          <p className="pl-5">{city ? getTodaysDate() : <Skeleton />}</p>
+          <p className="pl-5">
+            {city ? getTodaysDate() : <Skeleton width={140} />}
+          </p>
         </div>
         <SearchBar onSearch={handleSearch} setCity={setCity} />
       </div>
@@ -191,7 +193,6 @@ function Weather({
           }}
         />
       )}
-
       <>
         {weatherData ? (
           <div className="flex flex-col sm:flex-row justify-between  gap-y-10 items-center  mb-20">

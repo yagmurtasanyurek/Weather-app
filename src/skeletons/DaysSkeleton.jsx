@@ -16,27 +16,27 @@ export function DaysSkeleton() {
               >
                 <div className="flex flex-col  w-9">
                   <Skeleton width={30} height={16} className="mb-1" />
-                  <Skeleton width={30} height={14} />
+                  <Skeleton width={30} height={10} />
                 </div>
                 <div>
                   <Skeleton circle width={50} height={50} />
                 </div>
                 <div className="min-w-9">
                   <Skeleton width={30} height={16} className="mb-1" />
-                  <Skeleton width={30} height={14} />
+                  <Skeleton width={30} height={10} />
                 </div>
                 <div className="min-w-9">
                   <Skeleton width={30} height={16} className="mb-1" />
-                  <Skeleton width={30} height={14} />
+                  <Skeleton width={30} height={10} />
                 </div>
 
                 <div className="min-w-9">
                   <Skeleton width={30} height={16} className="mb-1" />
-                  <Skeleton width={30} height={14} />
+                  <Skeleton width={30} height={10} />
                 </div>
                 <div className="-minw-9">
                   <Skeleton width={30} height={16} className="mb-1" />
-                  <Skeleton width={30} height={14} />
+                  <Skeleton width={30} height={10} />
                 </div>
               </li>
             ))}

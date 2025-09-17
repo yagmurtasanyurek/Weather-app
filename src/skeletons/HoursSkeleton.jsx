@@ -11,9 +11,9 @@ export function HoursSkeleton() {
           .map((_, i) => (
             <li key={i} className="">
               <div className=" flex flex-col justify-center items-center min-w-[100px] h-[130px]  bg-white/10 rounded-xl p-2 ">
-                <Skeleton width={40} height={20} className="mb-2" />
+                <Skeleton width={40} height={10} className="mb-2" />
                 <Skeleton circle width={40} height={40} className="mb-2" />
-                <Skeleton width={35} height={20} />
+                <Skeleton width={35} height={10} />
               </div>
             </li>
           ))}

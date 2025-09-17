@@ -11,9 +11,9 @@ export function MainWeatherSkeleton() {
           className="w-40 h-40 md:w-64 md:h-64 mb-2 sm:mb-0 sm:mr-4"
         />
 
-        <div className="">
-          <Skeleton width={110} height={60} className="mb-2" />
-          <Skeleton width={100} height={20} />
+        <div>
+          <Skeleton width={110} height={50} className="mb-4" />
+          <Skeleton width={100} height={10} />
         </div>
       </div>
       {/* Current stats div */}
@@ -22,8 +22,8 @@ export function MainWeatherSkeleton() {
           .fill(0)
           .map((_, i) => (
             <div key={i}>
-              <Skeleton width={40} height={20} className="mb-1" />
-              <Skeleton width={50} height={20} />
+              <Skeleton width={30} height={20} className="mb-1" />
+              <Skeleton width={30} height={10} />
             </div>
           ))}
       </div>
