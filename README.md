@@ -52,7 +52,7 @@ While building this project, I:
 - **React**  
 - **Redux Toolkit Query (RTK Query)** for API requests & caching  
 - **Tailwind CSS**  
-- **Open-Meteo API** (or specify API you used)  
+- **Open-Meteo API** 
 
 ---
 
