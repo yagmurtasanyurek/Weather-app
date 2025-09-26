@@ -27,19 +27,19 @@ It provides **hourly forecasts** and predictions for the **next few days** with 
 
 ---
 
-##💡**Lessons Learned**
+## 💡Lessons Learned
 
 While building this project, I:
--Learned how to use **RTK Query** for fetching and managing API data
--Practiced **using hooks** for state & error handling
--Implemented **modal** and controlled their open/close state
--Worked with **loading skeletons** for the first time
--Improved **state management** for multiple UI states (modals, highlights, errors, etc.)
--Understood the importance of **hiding environment variables** (.env)
+- Learned how to use **RTK Query** for fetching and managing API data
+- Practiced **using hooks** for state & error handling
+- Implemented **modal** and controlled their open/close state
+- Worked with **loading skeletons** for the first time
+- Improved **state management** for multiple UI states (modals, highlights, errors, etc.)
+- Understood the importance of **hiding environment variables** (.env)
 
 ---
 
-##🔮 **Future Improvements**
+## Future Improvements
 - Change background dynamically according to time of day (sunrise/sunset)
 - Show **country flags** in the city dropdown suggestions
 - Add a **dark mode** option
@@ -48,7 +48,7 @@ While building this project, I:
 
 ## 🛠️ Tech Stack
 
--**JavaScript (ES6+)**  
+- **JavaScript (ES6+)**  
 - **React**  
 - **Redux Toolkit Query (RTK Query)** for API requests & caching  
 - **Tailwind CSS**  
