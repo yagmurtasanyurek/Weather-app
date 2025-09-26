@@ -27,7 +27,7 @@ It provides **hourly forecasts** and predictions for the **next few days** with 
 
 ---
 
-##💡 **Lessons Learned**
+##💡Lessons Learned
 While building this project, I:
 -Learned how to use **RTK Query** for fetching and managing API data
 -Practiced **using hooks** for state & error handling
