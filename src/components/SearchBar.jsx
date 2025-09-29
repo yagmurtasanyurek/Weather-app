@@ -101,7 +101,7 @@ function SearchBar({ onSearch, setCity }) {
           type="search"
           aria-label="Search for a city"
           inputMode="search"
-          placeholder=" Search for a city"
+          placeholder=" Search a city"
           className=" text-black outline-none rounded-xl w-full h-8 pr-2 bg-neutral-50 "
         />
       </form>
