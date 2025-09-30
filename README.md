@@ -73,7 +73,7 @@ To run this project locally:
 
 ```bash
 # Clone the repository
-git clone https://github.com/yagmurtasanyurek/weather-app.git
+git clone https://github.com/yagmurtasanyurek/Weather-app.git
 
 # Navigate to the project folder
 cd weather-app
